@@ -10,8 +10,8 @@ permissions:
   contents: read
 jobs:
   my-instances:
-    runs-on: ubuntu-latest
-    name: Restart Instance every 6 day
+    runs-on: self-hosted
+    name: Restart Instance every 5 mins 
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
       OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
