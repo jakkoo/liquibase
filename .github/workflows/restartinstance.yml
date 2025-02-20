@@ -1,11 +1,11 @@
 name: 'Restart Instance every 6 day'
 ##### UNCOMENT HERE
-#on:
-  #schedule:
-  #  - cron: "0 1 1-30/6 * *"
-  # push:
-  #   branches: [ "master" ]
-  # pull_request:
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+   push:
+    branches: [ "master" ]
+   pull_request:
 permissions:
   contents: read
 jobs:
