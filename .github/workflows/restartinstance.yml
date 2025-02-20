@@ -2,9 +2,9 @@ name: "Restart Instance every 5 mins"
 on:
   schedule:
     - cron: "*/5 * * * *"
-   push:
+  push:
     branches: [ "master" ]
-   pull_request:
+  pull_request:
 permissions:
   contents: read
 jobs:
