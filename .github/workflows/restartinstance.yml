@@ -9,7 +9,7 @@ on:
 jobs:
   my-instances:
     runs-on: self-hosted
-    environment: oci
+    environment: oracleoci
     name: Restart Instance every 5 mins 
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
