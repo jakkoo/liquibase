@@ -1,4 +1,4 @@
-name: 'Restart Instance every 5 mins'
+name: "Restart Instance every 5 mins"
 on:
   schedule:
     - cron: "*/5 * * * *"
