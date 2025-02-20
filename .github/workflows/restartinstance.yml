@@ -22,7 +22,7 @@ jobs:
         uses: oracle-actions/run-oci-cli-command@v1.1.1
         id: restart_instance
         with:
-          command: 'compute instance action --instance-id ${{ OCI_INSTANCE_ID }} --action SOFTRESET'
+          command: 'compute instance action --instance-id ${{ env.OCI_INSTANCE_ID }} --action SOFTRESET'
       - name: Show output
         run: |
           echo ${{ steps.restart_instance.outputs.output }} | jq .
