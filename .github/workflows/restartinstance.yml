@@ -18,7 +18,7 @@ jobs:
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
     steps:
-      - name: oci restart ${{ OCI_INSTANCE_ID }}
+      - name: oci restart $OCI_INSTANCE_ID
         uses: oracle-actions/run-oci-cli-command@v1.1.1
         id: restart_instance
         with:
