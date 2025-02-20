@@ -1,0 +1,30 @@
+name: 'Restart Instance every 6 day'
+##### UNCOMENT HERE
+#on:
+  #schedule:
+  #  - cron: "0 1 1-30/6 * *"
+  # push:
+  #   branches: [ "master" ]
+  # pull_request:
+permissions:
+  contents: read
+jobs:
+  my-instances:
+    runs-on: ubuntu-latest
+    name: Restart Instance every 6 day
+    env:
+      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+      OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
+    steps:
+      - name: oci restart ${{ OCI_INSTANCE_ID }}
+        uses: oracle-actions/run-oci-cli-command@v1.1.1
+        id: restart_instance
+        with:
+          command: 'compute instance action --instance-id ${{ OCI_INSTANCE_ID }} --action SOFTRESET'
+      - name: Show output
+        run: |
+          echo ${{ steps.restart_instance.outputs.output }} | jq .
