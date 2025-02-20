@@ -1,4 +1,8 @@
 name: "Restart Instance every 5 mins"
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
 jobs:
   my-instances:
     runs-on: self-hosted
