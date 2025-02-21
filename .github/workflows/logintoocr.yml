@@ -24,6 +24,8 @@ jobs:
         run: export OCI_CLI_KEY_CONTENT="$(/root/oracleidentitycloudservice_pri.pem)"
       - name: debg
         run: echo ${{ env.OCI_CLI_KEY_CONTENT }}
+      - name: userdtls
+        run: echo $GITHUB_CONTEXT
       - name: Get or create an OCIR Repository
         uses: oracle-actions/get-ocir-repository@v1.3.0
         id: get-ocir-repository
