@@ -1,4 +1,4 @@
-name: "OCI-R login"
+name: "OCIR login"
 on:
 #  schedule:
 #    - cron: '*/5 * * * *'
