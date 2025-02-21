@@ -9,7 +9,10 @@ on:
     branches: [ "main" ]
 jobs:
   get-ocir-repository-test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.0
+    run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+    run: echo $GITHUB_SHA_SHORT
+    run: export OCI_CLI_KEY_CONTENT="$(/root/oracleidentitycloudservice_pri.pem)"
     environment: oracleoci
     name: Get OCIR Repository Test
     env:
