@@ -20,7 +20,7 @@ jobs:
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
     steps:
       - name: tst1
-        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_EN
+        run: echo "GITHUB_SHA_SHORT=$(echo $HOME)" >> $GITHUB_EN
       - name: tst2
         run: export OCI_CLI_KEY_CONTENT="$(/root/oracleidentitycloudservice_pri.pem)"
       - name: Get or create an OCIR Repository
