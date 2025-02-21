@@ -21,7 +21,7 @@ jobs:
     steps:
     
       - name: tst2
-        run: export OCI_CLI_KEY_CONTENT="$(cat /root/oracleidentitycloudservice_pri.pem)"
+        run: export OCI_CLI_KEY_CONTENT3="$(cat /root/oracleidentitycloudservice_pri.pem)"
       - name: debg
         run: echo ${{ env.OCI_CLI_KEY_CONTENT }}
       - name: userdtls
