@@ -1,3 +1,12 @@
+name: "Restart Instance every 5 mins"
+on:
+#  schedule:
+#    - cron: '*/5 * * * *'
+  
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 jobs:
   get-ocir-repository-test:
     runs-on: ubuntu-22.04
