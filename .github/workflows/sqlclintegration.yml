@@ -31,7 +31,10 @@ jobs:
          distribution: 'oracle'
          java-version: '21'
       - name: 'execute java'
-        run: 'java -version'
+      - run: 'java -version'
+      - run: 'echo "JAVA_CMD=$(echo $JAVA_HOME )/bin" >> $GITHUB_ENV '
+      - run: 'echo $ {{ GITHUB_ENV }}'
+      
 
     
       - name: Retrieve the OCID of a named compartment in tenancy
