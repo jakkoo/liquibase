@@ -29,7 +29,7 @@ jobs:
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
         with:
-          command: 'iam compartment list'
+          command: 'oci iam user get --user-id ocid1.user.oc1..aaaaaaaapner2csixx4zgbktqw7yks22qofv6yqpdej4ymg6faaplwo7ddxq'
       
 
       - name: Retrieve the display name and shape of the instances in my compartment
