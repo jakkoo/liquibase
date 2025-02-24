@@ -31,11 +31,8 @@ jobs:
         with:
          distribution: 'oracle'
          java-version: '21'
-        
-      - name: 'execute hello world' 
-        run: |
-         java -version
-             
+      - name: 'execute java'
+        run: 'java -version'
       - name: 'Set up archived Oracle JDK 21.0.4'
         uses: oracle-actions/setup-java@v1
         with:
