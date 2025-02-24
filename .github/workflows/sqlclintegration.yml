@@ -33,7 +33,7 @@ jobs:
       - name: 'execute java'
         run: |
           java -version
-          "JAVA_CMD=$(echo $JAVA_HOME )/bin" >> $GITHUB_ENV 
+          
          
 
     
