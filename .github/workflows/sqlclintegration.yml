@@ -29,8 +29,8 @@ jobs:
         uses: oracle-actions/setup-java@v1
         with:
           website: oracle.com
-          release: 21
-          version: 21.0.4
+          release: 17
+    
       - name: Retrieve the OCID of a named compartment in tenancy
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
