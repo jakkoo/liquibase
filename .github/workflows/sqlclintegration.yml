@@ -31,7 +31,7 @@ jobs:
         with:
          distribution: 'oracle'
          java-version: '21'
-      - run: java -cp java HelloWorldApp
+      
       - name: 'Set up archived Oracle JDK 21.0.4'
         uses: oracle-actions/setup-java@v1
         with:
@@ -51,6 +51,7 @@ jobs:
           echo ${{ steps.find-compartment-id.outputs.output }} | jq .
           echo outputContent=${{ steps.find-compartment-id.outputs.output }} >> $env:GITHUB_OUTPUT
           echo "Bash version: ${{ steps.find-compartment-id.outputs.outputContent }}"
+      - run: java -cp java HelloWorldApp
 
 
 
