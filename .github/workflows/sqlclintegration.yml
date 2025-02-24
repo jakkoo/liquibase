@@ -51,7 +51,7 @@ jobs:
           echo ${{ steps.find-compartment-id.outputs.output }} | jq .
           echo outputContent=${{ steps.find-compartment-id.outputs.output }} >> $env:GITHUB_OUTPUT
           echo "Bash version: ${{ steps.find-compartment-id.outputs.outputContent }}"
-      - run: java -cp java HelloWorldApp
+      
 
 
 
