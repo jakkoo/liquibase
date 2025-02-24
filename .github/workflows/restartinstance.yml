@@ -29,7 +29,8 @@ jobs:
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
         with:
-          command: 'oci iam user get --user-id ocid1.user.oc1..aaaaaaaapner2csixx4zgbktqw7yks22qofv6yqpdej4ymg6faaplwo7ddxq'
+          command: 'iam compartment list --compartment-id-in-subtree=true'
+          query: "data[?name=='VenkateshSampoornam'].id"
       
       - name: Check run status
         if: steps.run.outputs.status != '0'
