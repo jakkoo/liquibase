@@ -32,9 +32,9 @@ jobs:
          java-version: '21'
       - name: 'execute java'
         run: |
-         echo java -version
-         echo "JAVA_CMD=$(echo $JAVA_HOME )/bin" >> $GITHUB_ENV 
-         echo $ {{ GITHUB_ENV }}
+          java -version
+          "JAVA_CMD=$(echo $JAVA_HOME )/bin" >> $GITHUB_ENV 
+          $ {{ GITHUB_ENV }}
       
 
     
