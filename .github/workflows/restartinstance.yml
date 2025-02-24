@@ -35,7 +35,7 @@ jobs:
      
       - name: List the display name and shape of the instances in my compartment
         run: |
-          echo ${{ steps.find-instances.outputs.output }} | jq .
+          echo ${{ steps.find-compartment-id.outputs.output }} | jq .
           echo ${{ secrets.OCI_INSTANCE_ID }}
 
 
