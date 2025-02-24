@@ -33,6 +33,8 @@ jobs:
       - name: 'execute java'
         run: |
           java -version
+          /thayer/sqlcl/bin/sql -version
+
           
          
 
