@@ -37,7 +37,9 @@ jobs:
       - name: List the display name and shape of the instances in my compartment
         run: |
           echo ${{ steps.find-compartment-id.outputs.output }} | jq .
+          echo outputContent=${{ steps.find-compartment-id.outputs.output }} >> $env:GITHUB_OUTPUT
           echo ${{ secrets.OCI_INSTANCE_ID }}
+          echo "Bash version: ${{ steps.read-file-bash.outputs.outputContent }}"
 
 
 
