@@ -7,7 +7,12 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+   inputs:
+      dbname:
+        description: 'database name '
+        required: true
+        default: 'dev1'
+  
 jobs:
   my-instances:
     runs-on: self-hosted
@@ -22,11 +27,12 @@ jobs:
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
    
     steps:
+       
       - name: Retrieve the OCID of a named compartment in tenancy
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
         with:
-          command: ' oci db autonomous-database create-from-clone --clone-type FULL --source-id ${{ secrets.sourceID }} --compute-model ECPU --compute-count 2 --data-storage-size-in-gbs 20 --admin-password ${{ secrets.DB_PASSWD }} --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }} --db-version 19c --db-name myTestDb
+          command: ' oci db autonomous-database create-from-clone --clone-type FULL --source-id ${{ secrets.sourceID }} --compute-model ECPU --compute-count 2 --data-storage-size-in-gbs 20 --admin-password ${{ secrets.DB_PASSWD }} --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }} --db-version 19c --db-name ${{ github.event.inputs.dbname }}
 '
           silent: false
       - name: List the display name and shape of the instances in my compartment
