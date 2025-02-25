@@ -28,7 +28,7 @@ jobs:
         with:
           command: ' oci db autonomous-database create-from-clone --clone-type FULL --source-id ${{ secrets.sourceID }} --compute-model ECPU --compute-count 1 --data-storage-size-in-gbs 2 --admin-password ${{ secrets.DB_PASSWD }} --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }} --db-version 19c --db-name myTestDb
 '
-          silent: false
+          silent: true
       - name: List the display name and shape of the instances in my compartment
         run: |
           echo ${{ steps.find-compartment-id.outputs.output }} | jq .
