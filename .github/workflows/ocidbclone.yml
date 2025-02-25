@@ -1,8 +1,5 @@
 name: "oci db clone "
 on:
-#  schedule:
-#    - cron: '*/5 * * * *'
-  
   push:
     branches: [ "main" ]
   pull_request:
@@ -25,28 +22,13 @@ jobs:
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
    
     steps:
-      - name : setup java
-        uses: actions/setup-java@v4
-        with:
-         distribution: 'oracle'
-         java-version: '21'
-      - name: 'execute java'
-        run: |
-          java -version
-          /thayer/sqlcl/bin/sql -version
-
-          
-         
-
-    
       - name: Retrieve the OCID of a named compartment in tenancy
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
         with:
-          command: 'iam compartment list --compartment-id ocid1.tenancy.oc1..aaaaaaaaplkmid2untpzjcxrmbv4nowe74yb4lr6idtckwo4wyf7jh23be4q'
+          command: ' oci db autonomous-database create-from-clone --clone-type FULL --source-id ${{ secrets.sourceID }} --compute-model ECPU --compute-count 1 --data-storage-size-in-gbs 2 --admin-password $$ {{ secrets.DB_PASSWD }} --compartment-id ${{ OCI_COMPARTMENT_ID}} --db-version 19c --db-name myTestDb
+'
           silent: true
-      
-     
       - name: List the display name and shape of the instances in my compartment
         run: |
           echo ${{ steps.find-compartment-id.outputs.output }} | jq .
