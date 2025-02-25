@@ -15,7 +15,7 @@ jobs:
   my-instances:
     runs-on: self-hosted
     environment: oracleoci
-    name: Restart Instance every 5 mins 
+    name: SQLcl Integration
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
       OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
