@@ -53,7 +53,7 @@ jobs:
          token: ${{ github.token }}
 
       - name: Run a one-line script
-        run: echo Hello from Octo Organization
+        run:  echo "test"
       - name : setup java
         uses: actions/setup-java@v4
         with:
