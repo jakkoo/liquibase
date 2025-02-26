@@ -42,7 +42,7 @@ jobs:
           eval "${CMD}"
 
           # export
-          echo "${SQLCL_HOME}/bin" >> "$GITHUB_PATH
+          echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
           sql  /nolog 
           set cloudconfig /thayer/Wallet_thayeratp.zip
           connect admin/${{ secrets.DB_PASSWD }}@thayeratp_low
