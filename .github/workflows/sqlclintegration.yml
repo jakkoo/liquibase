@@ -46,6 +46,7 @@ jobs:
           sql  /nolog 
           set cloudconfig /thayer/Wallet_thayeratp.zip
           connect admin/${{ secrets.DB_PASSWD }}@thayeratp_low
+          lb gen schema
 
           
          
