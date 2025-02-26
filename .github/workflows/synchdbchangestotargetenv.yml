@@ -38,6 +38,15 @@ jobs:
       AGENT_TOOLSDIRECTORY: /thayer/envs/${{ inputs.envname }}
    
     steps:
+      - name: checkout dev
+        uses: actions/checkout@v4
+        with:
+         repository: ${{ github.repository }}
+         ref: 'dev'
+         token: ${{ github.token }}
+
+      - name: Run a one-line script
+        run: echo Hello from Octo Organization
       - name : setup java
         uses: actions/setup-java@v4
         with:
