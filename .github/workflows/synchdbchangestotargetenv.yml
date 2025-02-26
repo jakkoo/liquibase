@@ -16,7 +16,7 @@ on:
         description: 'name of the ATP DB instance to push the sql changes- dev,qa,uat,prod etc '
         required: true
         default: 'dev1'
-      dbinstance-displayname:
+      dbinstance-name:
         description: 'ATP database instance display name '
         required: true
         default: 'dev2'
@@ -40,6 +40,7 @@ jobs:
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
       AGENT_TOOLSDIRECTORY: "/thayer/envs/${{ inputs.dbinstance-environment}}"
       RUNNER_TOOL_CACHE: "/thayer/envs/${{ inputs.dbinstance-environment}}"
+      TNSADMIN: "/thayer/envs/${{ inputs.dbinstance-environment}}/dbinstances/${{ inputs.dbinstance-name}}"
    
     steps:
       - name : setup java
@@ -61,7 +62,7 @@ jobs:
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
     
-          echo "lb update controller.xml" | sql admin/${{ secrets.DB_PASSWD }}@${{ secrets.DB_Service_Name }}?TNS_ADMIN=/thayer/envs/${{ inputs.dbinstance-environment}}
+          echo "lb update controller.xml" | sql admin/${{ secrets.DB_PASSWD }}@${{ secrets.DB_Service_Name }}?TNS_ADMIN=${{ env.TNSADMIN }}
           
 
           
