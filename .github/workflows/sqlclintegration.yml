@@ -23,6 +23,8 @@ jobs:
       OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
+      RUNNER_TOOL_CACHE: /thayer/envs/dev
+      AGENT_TOOLSDIRECTORY: /thayer/envs/dev
    
     steps:
       - name : setup java
@@ -30,10 +32,20 @@ jobs:
         with:
          distribution: 'oracle'
          java-version: '21'
-      - name: 'execute java'
+      - name: 'setup directories'
+        working-directory: /thayer/envs/dev
         run: |
-          java -version
-          /thayer/sqlcl/bin/sql -version
+          mkdir -p dev2 
+          echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
+          # eval version
+          CMD="${SQLCL_HOME}/bin/sql -version"
+          eval "${CMD}"
+
+          # export
+          echo "${SQLCL_HOME}/bin" >> "$GITHUB_PATH
+          sql  /nolog 
+          set cloudconfig /thayer/Wallet_thayeratp.zip
+          connect admin/${{ DB_PASSWD }}@thayeratp_low
 
           
          
