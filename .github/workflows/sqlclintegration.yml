@@ -43,10 +43,9 @@ jobs:
 
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
-          sql  /nolog 
-          set cloudconfig /thayer/Wallet_thayeratp.zip
-          connect admin/${{ secrets.DB_PASSWD }}@thayeratp_low
-          lb gen schema
+        
+          echo "lb generate-schema" | sql admin/Hanuman2025#@thayeratp_low?TNS_ADMIN=/thayer/
+          
 
           
          
