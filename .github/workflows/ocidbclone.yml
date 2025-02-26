@@ -32,7 +32,7 @@ jobs:
    
     steps:
        
-      - name: Retrieve the OCID of a named compartment in tenancy
+      - name: Clone the DB
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
         with:
