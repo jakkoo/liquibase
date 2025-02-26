@@ -11,25 +11,58 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      envname:
+        description: 'target environment name '
+        required: true
+        default: 'dev1'
+      db-instance-name:
+        description: 'database instance name '
+        required: true
+        default: 'dev2'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+   my-instances:
+    runs-on: self-hosted
+    environment: ${{ inputs.envname }}
+    name: SQLcl Integration
+    env:
+      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+      OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
+      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+      OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
+      RUNNER_TOOL_CACHE: /thayer/envs/${{ inputs.envname }}
+      AGENT_TOOLSDIRECTORY: /thayer/envs/${{ inputs.envname }}
+   
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name : setup java
+        uses: actions/setup-java@v4
+        with:
+         distribution: 'oracle'
+         java-version: '21'
+      - name: 'setup directories'
+        working-directory: /thayer/envs/${{ inputs.envname }}
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          mkdir -p dev2 
+          echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
+          # eval version
+          CMD="${SQLCL_HOME}/bin/sql -version"
+          eval "${CMD}"
+
+          # export
+          echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
+        
+          echo "lb generate-schema" | sql ${{ secrets.DB_USERNAME }}/${{ secrets.DB_PASSWD }}${{ secrets.DB_${{ inputs.db-instance-name }}_SERVICENAME }}?TNS_ADMIN=/thayer/envs/${{ inputs.envname }}/${{ inputs.db-instance-name }}
+          
+
+          
+         
+
+    
+     
+
+
+
