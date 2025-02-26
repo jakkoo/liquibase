@@ -53,7 +53,7 @@ jobs:
       - name: 'setup directories'
         working-directory: /thayer/envs/${{ inputs.dbinstance-environment}}
         run: |
-          mkdir -p dev2 
+          ls -ltr
           echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
           # eval version
           CMD="${SQLCL_HOME}/bin/sql -version"
