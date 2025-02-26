@@ -14,22 +14,55 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+   synchsqlchanges:
+    runs-on: self-hosted
+    environment: oracleoci
+    name: SQLcl Integration
+    env:
+      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+      OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
+      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+      OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
+      AGENT_TOOLSDIRECTORY: "/thayer/envs/dev"
+      RUNNER_TOOL_CACHE: "/thayer/envs/dev"
+   
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name : setup java
+        uses: actions/setup-java@v4
+        with:
+         distribution: 'oracle'
+         java-version: '21'
+      - name: 'setup directories'
+        working-directory: /thayer/envs/dev
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          mkdir -p dev2 
+          echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
+          # eval version
+          CMD="${SQLCL_HOME}/bin/sql -version"
+          eval "${CMD}"
+
+          # export
+          echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
+        
+          echo "lb generate-schema" | sql admin/Hanuman2025#@thayeratp_low?TNS_ADMIN=/thayer/
+          
+
+          
+         
+
+    
+      - name: Retrieve the OCID of a named compartment in tenancy
+        uses: oracle-actions/run-oci-cli-command@v1.3.2
+        id: find-compartment-id
+        with:
+          command: 'iam compartment list --compartment-id ocid1.tenancy.oc1..aaaaaaaaplkmid2untpzjcxrmbv4nowe74yb4lr6idtckwo4wyf7jh23be4q'
+          silent: true
+      
+     
+      - name: List the display name and shape of the instances in my compartment
+        run: |
+          echo ${{ steps.find-compartment-id.outputs.output }} | jq .
+          echo outputContent=${{ steps.find-compartment-id.outputs.output }} >> $env:GITHUB_OUTPUT
+          echo "Bash version: ${{ steps.find-compartment-id.outputs.outputContent }}"
