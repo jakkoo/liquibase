@@ -25,6 +25,9 @@ on:
 jobs:
    my-instances:
     runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: /thayer/envs/${{ inputs.envname }}
     environment: ${{ inputs.envname }}
     name: SQLcl Integration
     env:
@@ -38,11 +41,15 @@ jobs:
       AGENT_TOOLSDIRECTORY: /thayer/envs/${{ inputs.envname }}
    
     steps:
+     
+      - name: Use Workspace
+        run: ls $GITHUB_WORKSPACE
       - name: checkout dev
         uses: actions/checkout@v4
         with:
          repository: ${{ github.repository }}
          ref: 'dev'
+         path: dbinstances/${{ inputs.db-instance-name }}/lbfiles
          token: ${{ github.token }}
 
       - name: Run a one-line script
