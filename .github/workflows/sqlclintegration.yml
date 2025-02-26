@@ -32,14 +32,18 @@ jobs:
         with:
          distribution: 'oracle'
          java-version: '21'
-      - name: 'setup directories'
-        working-directory: /thayer/envs/dev
+      - name: 'set and cleanup dirs'
+        working-directory: /thayer/envs/dev/lbfiles
         run: |
-          mkdir -p dev2 
+          rm -rf *.xml
           echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
           # eval version
           CMD="${SQLCL_HOME}/bin/sql -version"
           eval "${CMD}"
+      - name: 'generate db schemas using lb'
+        working-directory: /thayer/envs/dev/lbfiles
+        run: |
+        
 
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
