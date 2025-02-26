@@ -45,7 +45,7 @@ jobs:
           echo "${SQLCL_HOME}/bin" >> "$GITHUB_PATH
           sql  /nolog 
           set cloudconfig /thayer/Wallet_thayeratp.zip
-          connect admin/${{ DB_PASSWD }}@thayeratp_low
+          connect admin/${{ secrets.DB_PASSWD }}@thayeratp_low
 
           
          
