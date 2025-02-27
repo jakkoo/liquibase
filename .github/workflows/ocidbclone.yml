@@ -22,7 +22,7 @@ on:
           - PARTIAL
         description: 'database clone type name '
         required: true
-        default: 'full'
+        default: 'FULL'
   
 jobs:
   my-instances:
