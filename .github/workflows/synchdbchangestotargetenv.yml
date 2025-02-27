@@ -44,13 +44,13 @@ jobs:
       OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
-      RUNNER_TOOL_CACHE: /thayer/envs/${{ env.DB_ENV }}
-      AGENT_TOOLSDIRECTORY: /thayer/envs/${{ env.DB_ENV }}
+      RUNNER_TOOL_CACHE: /thayer/envs/${{ github.event.inputs.envname || 'oracleoci' }}
+      AGENT_TOOLSDIRECTORY: /thayer/envs/${{ github.event.inputs.envname || 'oracleoci' }}
       DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
       DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
-      DB_USER: ${{ format('DB_{0}_USER', ${{ env.DB_USER }} ) }}
-      DB_PASSWD: ${{ format('DB_{0}_PASSWD',inputs.db-instance-name) }}
-      DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',inputs.db-instance-name) }}
+      DB_USER: ${{ format('DB_{0}_USER', ${{ env.DB_INST }} ) }}
+      DB_PASSWD: ${{ format('DB_{0}_PASSWD',${{ env.DB_INST }} ) }}
+      DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',${{ env.DB_INST }} ) }}
   
     steps:
      
