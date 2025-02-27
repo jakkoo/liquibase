@@ -39,9 +39,9 @@ jobs:
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
       RUNNER_TOOL_CACHE: /thayer/envs/${{ inputs.envname }}
       AGENT_TOOLSDIRECTORY: /thayer/envs/${{ inputs.envname }}
-      DB_USER: format({0}{1}{2},DB_,inputs.db-instance-name,_USER)
-      DB_PASSWD: format({0}{1}{2},DB_,inputs.db-instance-name,_PASSWD)
-      DB_TNSNAME: format({0}{1}{2},DB_,inputs.db-instance-name,_TNSNAME)
+      DB_USER: ${{ format({0}{1}{2},DB_,inputs.db-instance-name,_USER) }}
+      DB_PASSWD: ${{ format({0}{1}{2},DB_,inputs.db-instance-name,_PASSWD) }}
+      DB_TNSNAME: ${{ format({0}{1}{2},DB_,inputs.db-instance-name,_TNSNAME) }}
    
     steps:
      
