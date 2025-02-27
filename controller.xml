@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+-->
+<databaseChangeLog 
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <include file="dbtools$execution_history_seq_sequence.xml"/> 
+  <include file="data_pump_dir_directory.xml"/> 
+  <include file="scheduler$_log_dir_directory.xml"/> 
+  <include file="sql_tcb_dir_directory.xml"/> 
+  <include file="dbtools$execution_history_table.xml"/> 
+  <include file="merchandise_table.xml"/> 
+  <include file="test_table.xml"/> 
+  <include file="pipeline$1_job.xml"/> 
+  <include file="pipeline$2_job.xml"/> 
+</databaseChangeLog> 

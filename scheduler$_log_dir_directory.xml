@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="15ea278082a0324c4e0279b5e9828d1ab81c43d0" author="(ADMIN)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleDirectory objectName="SCHEDULER$_LOG_DIR" objectType="DIRECTORY" ownerName="ADMIN"  replaceIfExists="false" >
+    <n0:source><![CDATA[ CREATE OR REPLACE DIRECTORY "SCHEDULER$_LOG_DIR" AS '/u01/app/oracle/product/19.0.0.0/dbhome_1/scheduler/log';]]></n0:source>
+      </n0:createOracleDirectory>
+ </changeSet>
+</databaseChangeLog>

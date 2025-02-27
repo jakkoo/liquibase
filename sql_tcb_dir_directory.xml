@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="e9484647cd0668582bd927052e81117f54b3ebbe" author="(ADMIN)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleDirectory objectName="SQL_TCB_DIR" objectType="DIRECTORY" ownerName="ADMIN"  replaceIfExists="false" >
+    <n0:source><![CDATA[ CREATE OR REPLACE DIRECTORY "SQL_TCB_DIR" AS 'tcb_dir';]]></n0:source>
+      </n0:createOracleDirectory>
+ </changeSet>
+</databaseChangeLog>
