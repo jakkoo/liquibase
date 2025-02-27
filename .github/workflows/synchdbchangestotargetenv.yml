@@ -73,8 +73,9 @@ jobs:
          distribution: 'oracle'
          java-version: '21'
       - name: 'setup directories'
-        working-directory: /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ inputs.db-instance-name }}
+        working-directory: /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ inputs.db-instance-name }}/lbfiles
         run: |
+          mv $$GITHUB_WORKSPACE/lbfiles ${{ github.workspace }}
           echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
           # eval version
           CMD="${SQLCL_HOME}/bin/sql -version"
