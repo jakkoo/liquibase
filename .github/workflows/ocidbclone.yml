@@ -6,6 +6,8 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
    inputs:
+    type: choice
+    options:
       dbname:
         description: 'database name '
         required: true
@@ -14,6 +16,10 @@ on:
         description: 'database display name '
         required: true
         default: 'dev2'
+      dbclonetype:
+        description: 'database clone type name '
+        required: true
+        default: 'full'
   
 jobs:
   my-instances:
@@ -38,7 +44,7 @@ jobs:
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
         with:
-          command: ' oci db autonomous-database create-from-clone --clone-type FULL --source-id ${{ secrets.sourceID }} --compute-model ECPU --compute-count 2 --data-storage-size-in-gbs 20 --admin-password ${{ secrets.DB_PASSWD }} --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }} --db-version 19c --db-name ${{ github.event.inputs.dbname }} --display-name  ${{ github.event.inputs.dbdisplayname }}
+          command: ' oci db autonomous-database create-from-clone --clone-type ${{ github.event.inputs.dbclonetype }} --source-id ${{ secrets.sourceID }} --compute-model ECPU --compute-count 2 --data-storage-size-in-gbs 20 --admin-password ${{ secrets.DB_PASSWD }} --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }} --db-version 19c --db-name ${{ github.event.inputs.dbname }} --display-name  ${{ github.event.inputs.dbdisplayname }}
 '
           silent: true
       - name: List the display name and shape of the instances in my compartment
