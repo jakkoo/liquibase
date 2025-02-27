@@ -15,6 +15,7 @@ on:
   
     inputs:
       envname:
+        type: choice
         description: 'target environment name '
         required: true
         options:
