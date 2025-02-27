@@ -55,7 +55,7 @@ jobs:
     steps:
      
       - name: Use Workspace
-        run: ls $GITHUB_WORKSPACE
+        run: echo $GITHUB_WORKSPACE
       - name: checkout dev
         uses: actions/checkout@v4
         
