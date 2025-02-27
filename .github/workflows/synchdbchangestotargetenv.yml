@@ -82,7 +82,7 @@ jobs:
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
       - name: 'execute the udpate'
         working-directory: /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ inputs.db-instance-name }}/lbfiles
-        run: echo "lb update -changelog controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
+        run: echo "lb update -changelog-file controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
           
 
           
