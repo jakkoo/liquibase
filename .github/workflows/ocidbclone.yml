@@ -6,8 +6,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
    inputs:
-    type: choice
-    options:
       dbname:
         description: 'database name '
         required: true
@@ -17,6 +15,11 @@ on:
         required: true
         default: 'dev2'
       dbclonetype:
+        type: choice
+        options:
+          - FULL
+          - METADATA
+          - PARTIAL
         description: 'database clone type name '
         required: true
         default: 'full'
