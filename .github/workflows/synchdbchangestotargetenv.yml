@@ -33,7 +33,7 @@ jobs:
     runs-on: self-hosted
     defaults:
       run:
-        working-directory: "/thayer/envs/${{ github.event.inputs.envname || 'oracleoci' }}"
+        working-directory: "${{ secrets.DB_ENV_BASEDIR }}/${{ github.event.inputs.envname || 'oracleoci' }}"
         
         
     environment: |-
@@ -50,8 +50,8 @@ jobs:
       OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
-      RUNNER_TOOL_CACHE: /thayer/envs/${{ github.event.inputs.envname || 'oracleoci' }}
-      AGENT_TOOLSDIRECTORY: /thayer/envs/${{ github.event.inputs.envname || 'oracleoci' }}
+      RUNNER_TOOL_CACHE: ${{ secrets.DB_ENV_BASEDIR }}/${{ github.event.inputs.envname || 'oracleoci' }}
+      AGENT_TOOLSDIRECTORY: ${{ secrets.DB_ENV_BASEDIR }}/${{ github.event.inputs.envname || 'oracleoci' }}
       DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
       DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
       DB_USER: ${{ format('DB_{0}_USER', github.event.inputs.db-instance-name || 'thayeratp' ) }}
@@ -81,14 +81,14 @@ jobs:
       - name: 'setup directories'
         
         run: |
-          echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
-          rm -rf /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
-          mv $GITHUB_WORKSPACE/lbfiles /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
+          echo "SQLCL_HOME=${{ secrets.SQLCL_HOME }}/" >> "$GITHUB_ENV"
+          rm -rf ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
+          mv $GITHUB_WORKSPACE/lbfiles ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
       - name: 'execute the udpate'
-        working-directory: /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
-        run: echo "lb update -changelog-file controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
+        working-directory: ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
+        run: echo "lb update -changelog-file controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
           
 
           
