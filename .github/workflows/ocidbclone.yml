@@ -27,12 +27,14 @@ on:
         type: choice
         options:
           - 19c
+          - 20c
         description: 'database version   '
         required: true
         default: '19c'
       dbcomputemodel:
         type: choice
         options:
+          - ECPU
           - ECPU
         description: 'database compute model  '
         required: true
