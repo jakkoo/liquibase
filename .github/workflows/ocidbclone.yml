@@ -40,9 +40,9 @@ on:
         required: true
         default: 'ECPU'
       dbcpucount:
-      description: 'database cpu count '
-      required: true
-      default: 2
+       description: 'database cpu count '
+       required: true
+       default: 2
       dbstoragesize:
        description: 'database storage size in gb '
        required: true
