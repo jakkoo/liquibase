@@ -9,7 +9,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <include file="dbtools$execution_history_seq_sequence.xml"/> 
-  <include file="data_pump_dir_directory.xml"/> 
+ 
   <include file="scheduler$_log_dir_directory.xml"/> 
   <include file="sql_tcb_dir_directory.xml"/> 
   <include file="dbtools$execution_history_table.xml"/> 
