@@ -41,7 +41,7 @@ jobs:
       AGENT_TOOLSDIRECTORY: /thayer/envs/${{ inputs.envname }}
       DB_USER: format({0}{1}{2},DB_,inputs.db-instance-name,_USER)
       DB_PASSWD: format({0}{1}{2},DB_,inputs.db-instance-name,_PASSWD)
-      DB_SVCNAME: format({0}{1}{2},DB_,inputs.db-instance-name,_SVCNAME)
+      DB_TNSNAME: format({0}{1}{2},DB_,inputs.db-instance-name,_TNSNAME)
    
     steps:
      
@@ -74,7 +74,7 @@ jobs:
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
           
         
-          echo "lb update controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[secrets[env.DB_SVCNAME] }}?TNS_ADMIN=/thayer/envs/${{ inputs.envname }}/dbinstances/${{ inputs.db-instance-name }}
+          echo "lb update controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ inputs.envname }}/dbinstances/${{ inputs.db-instance-name }}
           
 
           
