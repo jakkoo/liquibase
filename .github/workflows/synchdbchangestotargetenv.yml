@@ -20,12 +20,11 @@ on:
         - 'development'
         - 'staging'
         - 'production'
-                
         default: 'oracleoci'
       db-instance-name:
         description: 'database instance name '
         required: true
-        default: 'dev2'
+        default: 'thayeratp'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,8 +32,9 @@ jobs:
     runs-on: self-hosted
     defaults:
       run:
-        working-directory: /thayer/envs/${{ inputs.envname }}
-    environment: ${{ inputs.envname }}
+        working-directory: /thayer/envs/${{ env.DB_ENV }}
+        
+    environment: ${{ env.DB_ENV }}
     name: SQLcl Integration
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
@@ -43,9 +43,11 @@ jobs:
       OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
-      RUNNER_TOOL_CACHE: /thayer/envs/${{ inputs.envname }}
-      AGENT_TOOLSDIRECTORY: /thayer/envs/${{ inputs.envname }}
-      DB_USER: ${{ format('DB_{0}_USER',inputs.db-instance-name) }}
+      RUNNER_TOOL_CACHE: /thayer/envs/${{ env.DB_ENV }}
+      AGENT_TOOLSDIRECTORY: /thayer/envs/${{ env.DB_ENV }}
+      DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
+      DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
+      DB_USER: ${{ format('DB_{0}_USER',env.DB_INST) }}
       DB_PASSWD: ${{ format('DB_{0}_PASSWD',inputs.db-instance-name) }}
       DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',inputs.db-instance-name) }}
   
@@ -55,7 +57,7 @@ jobs:
         run: ls $GITHUB_WORKSPACE
       - name: checkout dev
         uses: actions/checkout@v4
-        - run: mv $GITHUB_WORKSPACE/lbfiles /thayer/envs/${{ inputs.envname }}/dbinstances/${{ inputs.db-instance-name }/lbfiles
+        
         with:
          repository: ${{ github.repository }}
          ref: 'dev'
@@ -70,7 +72,7 @@ jobs:
          distribution: 'oracle'
          java-version: '21'
       - name: 'setup directories'
-        working-directory: /thayer/envs/${{ inputs.envname }}/dbinstances/${{ inputs.db-instance-name }}
+        working-directory: /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ inputs.db-instance-name }}
         run: |
           echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
           # eval version
@@ -81,7 +83,7 @@ jobs:
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
           
         
-          echo "lb update controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ inputs.envname }}/dbinstances/${{ inputs.db-instance-name }}
+          echo "lb update controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ inputs.db-instance-name }}
           
 
           
