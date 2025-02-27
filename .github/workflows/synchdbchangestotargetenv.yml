@@ -77,9 +77,7 @@ jobs:
         run: |
           
           echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
-          # eval version
-          # CMD="${SQLCL_HOME}/bin/sql -version"
-          # eval "${CMD}"
+          
           rm -rf /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
           mv $GITHUB_WORKSPACE/lbfiles /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           # export
