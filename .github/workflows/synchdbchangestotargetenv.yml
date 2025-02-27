@@ -81,7 +81,7 @@ jobs:
           # CMD="${SQLCL_HOME}/bin/sql -version"
           # eval "${CMD}"
           rm -rf /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
-          mv ${{ github.workspace }}/lbfiles /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
+          mv $GITHUB_WORKSPACE/lbfiles /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
           
