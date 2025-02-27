@@ -49,10 +49,11 @@ jobs:
         run: ls $GITHUB_WORKSPACE
       - name: checkout dev
         uses: actions/checkout@v4
+        - run: mv $GITHUB_WORKSPACE/lbfiles /thayer/envs/${{ inputs.envname }}/dbinstances/${{ inputs.db-instance-name }/lbfiles
         with:
          repository: ${{ github.repository }}
          ref: 'dev'
-         path: dbinstances/${{ inputs.db-instance-name }}/lbfiles
+         path: lbfiles
          token: ${{ github.token }}
 
       - name: Run a one-line script
