@@ -10,11 +10,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <include file="dbtools$execution_history_seq_sequence.xml"/> 
  
-  <include file="scheduler$_log_dir_directory.xml"/> 
-  <include file="sql_tcb_dir_directory.xml"/> 
-  <include file="dbtools$execution_history_table.xml"/> 
-  <include file="merchandise_table.xml"/> 
+ 
   <include file="test_table.xml"/> 
-  <include file="pipeline$1_job.xml"/> 
-  <include file="pipeline$2_job.xml"/> 
+ 
 </databaseChangeLog> 
