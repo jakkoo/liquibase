@@ -69,6 +69,7 @@ jobs:
 
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
+          
         
           echo "lb update controller.xml" | sql ${{ secrets[DB_format('{0},'inputs.db-instance-name)_PASSWD] }}/${{ secrets[DB_format('{0},'inputs.db-instance-name)_PASSWD] }}@${{ secrets[DB_format('{0},'inputs.db-instance-name)_SERVICENAME] }}?TNS_ADMIN=/thayer/envs/${{ inputs.envname }}/dbinstances/${{ inputs.db-instance-name }}
           
