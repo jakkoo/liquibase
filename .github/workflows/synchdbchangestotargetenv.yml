@@ -75,14 +75,13 @@ jobs:
       - name: 'setup directories'
         working-directory: /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ inputs.db-instance-name }}/lbfiles
         run: |
-          
           echo "SQLCL_HOME=/thayer/sqlcl/" >> "$GITHUB_ENV"
-          rm -rf /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
+          
           mv $GITHUB_WORKSPACE/lbfiles /thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
-          
-          echo "lb update controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
+      - name: 'execute the udpate'
+        run: echo "lb update controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=/thayer/envs/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
           
 
           
