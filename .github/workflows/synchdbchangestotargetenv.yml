@@ -33,9 +33,9 @@ jobs:
     runs-on: self-hosted
     defaults:
       run:
-        working-directory: /thayer/envs/${{ env.DB_ENV }}
+        working-directory: /thayer/envs/${{ github.event.inputs.envname || 'oracleoci' }}
         
-    environment: ${{ env.DB_ENV }}
+    environment: ${{ github.event.inputs.envname || 'oracleoci' }}
     name: SQLcl Integration
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
@@ -48,7 +48,7 @@ jobs:
       AGENT_TOOLSDIRECTORY: /thayer/envs/${{ env.DB_ENV }}
       DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
       DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
-      DB_USER: ${{ format('DB_{0}_USER', ${{ env.DB_INST }} ) }}
+      DB_USER: ${{ format('DB_{0}_USER', ${{ env.DB_USER }} ) }}
       DB_PASSWD: ${{ format('DB_{0}_PASSWD',inputs.db-instance-name) }}
       DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',inputs.db-instance-name) }}
   
