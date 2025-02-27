@@ -15,7 +15,13 @@ on:
       envname:
         description: 'target environment name '
         required: true
-        default: 'dev1'
+        options:
+        - 'oracleoci'
+        - 'development'
+        - 'staging'
+        - 'production'
+                
+        default: 'oracleoci'
       db-instance-name:
         description: 'database instance name '
         required: true
