@@ -2,6 +2,7 @@
 
 name: SynchDBChangesToTargetEnv
 
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -11,6 +12,7 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  
     inputs:
       envname:
         description: 'target environment name '
@@ -25,7 +27,6 @@ on:
         description: 'database instance name '
         required: true
         default: 'thayeratp'
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
    my-instances:
@@ -47,7 +48,7 @@ jobs:
       AGENT_TOOLSDIRECTORY: /thayer/envs/${{ env.DB_ENV }}
       DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
       DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
-      DB_USER: ${{ format('DB_{0}_USER',env.DB_INST) }}
+      DB_USER: ${{ format('DB_{0}_USER', ${{ env.DB_INST }} ) }}
       DB_PASSWD: ${{ format('DB_{0}_PASSWD',inputs.db-instance-name) }}
       DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',inputs.db-instance-name) }}
   
