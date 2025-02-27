@@ -23,6 +23,28 @@ on:
         description: 'database clone type name '
         required: true
         default: 'FULL'
+      dbversion:
+        type: choice
+        options:
+          - 19c
+        description: 'database version   '
+        required: true
+        default: '19c'
+      dbcomputemodel:
+        type: choice
+        options:
+          - ECPU
+        description: 'database compute model  '
+        required: true
+        default: 'ECPU'
+      dbcpucount:
+      description: 'database cpu count '
+      required: true
+      default: 2
+      dbstoragesize:
+       description: 'database storage size in gb '
+       required: true
+       default: 20
   
 jobs:
   my-instances:
@@ -47,7 +69,7 @@ jobs:
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: find-compartment-id
         with:
-          command: ' oci db autonomous-database create-from-clone --clone-type ${{ github.event.inputs.dbclonetype }} --source-id ${{ secrets.sourceID }} --compute-model ECPU --compute-count 2 --data-storage-size-in-gbs 20 --admin-password ${{ secrets.DB_PASSWD }} --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }} --db-version 19c --db-name ${{ github.event.inputs.dbname }} --display-name  ${{ github.event.inputs.dbdisplayname }}
+          command: ' oci db autonomous-database create-from-clone --clone-type ${{ github.event.inputs.dbclonetype }} --source-id ${{ secrets.sourceID }} --compute-model ${{ github.event.inputs.dbcomputemodel }} --compute-count ${{ github.event.inputs.dbcpucount }} --data-storage-size-in-gbs ${{ github.event.inputs.dbstoragesize }} --admin-password ${{ secrets.DB_PASSWD }} --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }} --db-version ${{ github.event.inputs.dbversion }} --db-name ${{ github.event.inputs.dbname }} --display-name  ${{ github.event.inputs.dbdisplayname }}
 '
           silent: true
       - name: List the display name and shape of the instances in my compartment
