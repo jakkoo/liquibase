@@ -48,9 +48,9 @@ jobs:
       AGENT_TOOLSDIRECTORY: /thayer/envs/${{ github.event.inputs.envname || 'oracleoci' }}
       DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
       DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
-      DB_USER: ${{ format('DB_{0}_USER', ${{ env.DB_INST }} ) }}
-      DB_PASSWD: ${{ format('DB_{0}_PASSWD',${{ env.DB_INST }} ) }}
-      DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',${{ env.DB_INST }} ) }}
+      DB_USER: ${{ format('DB_{0}_USER', github.event.inputs.db-instance-name || 'thayeratp' ) }}
+      DB_PASSWD: ${{ format('DB_{0}_PASSWD',github.event.inputs.db-instance-name || 'thayeratp') }}
+      DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',github.event.inputs.db-instance-name || 'thayeratp' ) }}
   
     steps:
      
