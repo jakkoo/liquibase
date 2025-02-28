@@ -27,7 +27,7 @@ on:
         type: choice
         options:
           - 19c
-          - 20c
+          - 23ai
         description: 'database version   '
         required: true
         default: '19c'
