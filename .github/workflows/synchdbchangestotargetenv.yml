@@ -76,7 +76,7 @@ jobs:
         id: get-wallet-id
        
         with:
-          command: ' oci db autonomous-database generate-wallet --autonomous-database-id ${{ secrets.OCI_INSTANCE_ID }} --file $file --password ${{ env.DB_PASSWD }} --generate-type SINGLE
+          command: ' oci db autonomous-database generate-wallet --autonomous-database-id ${{ secrets.OCI_INSTANCE_ID }} --file ${{ env.DB_INST }} --password ${{ env.DB_PASSWD }} --generate-type SINGLE
 '
           silent: true
       - name : setup java
