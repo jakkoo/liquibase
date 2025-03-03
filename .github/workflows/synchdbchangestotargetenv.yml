@@ -73,8 +73,14 @@ jobs:
          path: lbfiles
          token: ${{ github.token }}
 
-      - name: Run a one-line script
-        run:  echo "test"
+      - name: Get Oracle Wallet
+        uses: oracle-actions/run-oci-cli-command@v1.3.2
+        id: get-wallet-id
+        working-directory: ${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
+        with:
+          command: ' oci db autonomous-database generate-wallet --autonomous-database-id ${{ secrets.OCI_INSTANCE_ID }} --file $file --password ${{ env.DB_PASSWD }} --generate-type SINGLE
+'
+          silent: true
       - name : setup java
         uses: actions/setup-java@v4
         with:
