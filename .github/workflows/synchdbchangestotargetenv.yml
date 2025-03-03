@@ -82,7 +82,7 @@ jobs:
         id: get-wallet-id
        
         with:
-          command: ' oci db autonomous-database generate-wallet --autonomous-database-id ${{ env.DB_INST_ID }} --file ${{ env.DB_INST }} --password ${{ secrets[env.DB_PASSWD] }} --generate-type SINGLE
+          command: ' oci db autonomous-database generate-wallet --autonomous-database-id ${{ env.DB_INST_ID }} --file ${{ env.DB_INST }}.zip --password ${{ secrets[env.DB_PASSWD] }} --generate-type SINGLE
 '
           silent: false
       - name : setup java
@@ -95,6 +95,7 @@ jobs:
         run: |
           echo "SQLCL_HOME=${{ secrets.SQLCL_HOME }}/" >> "$GITHUB_ENV"
           rm -rf ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
+          unzip  $GITHUB_WORKSPACE/${{ env.DB_INST }}.zip -d ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           mv $GITHUB_WORKSPACE/lbfiles ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           # export
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
