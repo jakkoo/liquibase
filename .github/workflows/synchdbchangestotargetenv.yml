@@ -61,12 +61,10 @@ jobs:
   
     steps:
      
-      - name: Use Workspace
+      - name: Workspace Location
         run: echo $GITHUB_WORKSPACE
       - name: checkout dev
-        
         uses: actions/checkout@v4
-        
         with:
          repository: ${{ github.repository }}
          ref: 'dev'
@@ -76,7 +74,7 @@ jobs:
       - name: Get Oracle Wallet
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         id: get-wallet-id
-        working-directory: ${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
+       
         with:
           command: ' oci db autonomous-database generate-wallet --autonomous-database-id ${{ secrets.OCI_INSTANCE_ID }} --file $file --password ${{ env.DB_PASSWD }} --generate-type SINGLE
 '
