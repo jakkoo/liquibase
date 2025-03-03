@@ -94,7 +94,7 @@ jobs:
         
         run: |
           echo "SQLCL_HOME=${{ secrets.SQLCL_HOME }}/" >> "$GITHUB_ENV"
-          rm -rf ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
+            rm -rf ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           unzip  $GITHUB_WORKSPACE/${{ env.DB_INST }}.zip -d ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           mv $GITHUB_WORKSPACE/lbfiles ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
           # export
