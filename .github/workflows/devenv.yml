@@ -57,9 +57,9 @@ jobs:
       DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',github.event.inputs.db-instance-name || 'thayeratp' ) }}
       DB_INST_ID: ${{ github.event.inputs.db-instance-id || 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla' }}
    
-    uses: liquibase/.github/workflows/dbsynch.yml@main
+    uses: liquibase/.github/workflows/DBChangesSync.yml@main
     with:
-      config-path: .github/labeler.yml
+      envname: oracleoci
     secrets: inherit
     
   
