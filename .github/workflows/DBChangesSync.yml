@@ -21,14 +21,9 @@ on:
 workflow_dispatch:
     inputs:
       envname:
-        type: choice
+        
         description: 'target environment name '
         required: true
-        options:
-        - 'oracleoci'
-        - 'dev'
-        - 'qa'
-        - 'uat'
         default: 'oracleoci'
       db-instance-name:
         description: 'database instance name '
