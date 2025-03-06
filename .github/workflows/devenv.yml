@@ -1,5 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 name: DevDBInstance-Sync
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 # Allows you to run this workflow manually from the Actions tab
 workflow_dispatch:
     inputs:
@@ -24,7 +29,7 @@ workflow_dispatch:
        
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-   my-instances:
+   dev-instances:
     runs-on: self-hosted
       
      
@@ -34,8 +39,8 @@ jobs:
      #    || github.ref_name == 'dev'  && 'dev'
       #   || 'oracleoci'
      # }}
-    environment: ${{ github.event.inputs.envname }}
-    name: SQLcl Integration
+    environment: oracleoci
+    name: DEV DB instance Sync
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
       OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
@@ -51,6 +56,12 @@ jobs:
       DB_PASSWD: ${{ format('DB_{0}_PASSWD',github.event.inputs.db-instance-name || 'thayeratp') }}
       DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',github.event.inputs.db-instance-name || 'thayeratp' ) }}
       DB_INST_ID: ${{ github.event.inputs.db-instance-id || 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla' }}
+   
+    uses: liquibase/.github/workflows/dbsynch.yml@main
+    with:
+      config-path: .github/labeler.yml
+    secrets: inherit
+    
   
     steps:
      
