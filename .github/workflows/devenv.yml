@@ -60,6 +60,8 @@ jobs:
     uses: liquibase/.github/workflows/DBChangesSync.yml@main
     with:
       envname: oracleoci
+      db-instance-name: thayeratp
+      db-instance-id: 
     secrets: inherit
     
   
