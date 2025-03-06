@@ -5,8 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-# Allows you to run this workflow manually from the Actions tab
-workflow_dispatch:
+  workflow_dispatch:
     inputs:
       envname:
         type: choice
@@ -29,80 +28,13 @@ workflow_dispatch:
        
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-   dev-instances:
-    runs-on: self-hosted
-      
-     
-    #environment: |-
-     # ${{
-     #    github.ref_name == 'master' && 'oracleoci'
-     #    || github.ref_name == 'dev'  && 'dev'
-      #   || 'oracleoci'
-     # }}
-    environment: oracleoci
-    name: DEV DB instance Sync
-    env:
-      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
-      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
-      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
-      OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
-      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
-      OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
-      RUNNER_TOOL_CACHE: ${{ secrets.DB_ENV_BASEDIR }}/${{ github.event.inputs.envname || 'oracleoci' }}
-      AGENT_TOOLSDIRECTORY: ${{ secrets.DB_ENV_BASEDIR }}/${{ github.event.inputs.envname || 'oracleoci' }}
-      DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
-      DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
-      DB_USER: ${{ format('DB_{0}_USER', github.event.inputs.db-instance-name || 'thayeratp' ) }}
-      DB_PASSWD: ${{ format('DB_{0}_PASSWD',github.event.inputs.db-instance-name || 'thayeratp') }}
-      DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',github.event.inputs.db-instance-name || 'thayeratp' ) }}
-      DB_INST_ID: ${{ github.event.inputs.db-instance-id || 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla' }}
-   
-    uses: liquibase/.github/workflows/DBChangesSync.yml@main
-    with:
+  dev-instances:
+   uses: liquibase/.github/workflows/DBChangesSync.yml@main
+   with:
       envname: oracleoci
       db-instance-name: thayeratp
-      db-instance-id: 
-    secrets: inherit
+      db-instance-id: ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla
     
-  
-    steps:
-     
-      - name: Workspace Location
-        run: echo $GITHUB_WORKSPACE
-      - name: checkout dev
-        uses: actions/checkout@v4
-        with:
-         repository: ${{ github.repository }}
-         ref: 'dev'
-         path: lbfiles
-         token: ${{ github.token }}
-
-      - name: Get Oracle Wallet
-        uses: oracle-actions/run-oci-cli-command@v1.3.2
-        id: get-wallet-id
-       
-        with:
-          command: ' oci db autonomous-database generate-wallet --autonomous-database-id ${{ env.DB_INST_ID }} --file ${{ env.DB_INST }}.zip --password ${{ secrets[env.DB_PASSWD] }} --generate-type SINGLE
-'
-          silent: false
-      - name : setup java
-        uses: actions/setup-java@v4
-        with:
-         distribution: 'oracle'
-         java-version: '21'
-      - name: 'setup directories'
-        
-        run: |
-          echo "SQLCL_HOME=${{ secrets.SQLCL_HOME }}/" >> "$GITHUB_ENV"
-            rm -rf ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
-          unzip  $GITHUB_WORKSPACE/${{ env.DB_INST }}.zip -d ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
-          mv $GITHUB_WORKSPACE/lbfiles ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/
-          # export
-          echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
-      - name: 'execute the udpate'
-        working-directory: ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
-        run: echo "lb update -changelog-file controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
-          
 
           
          
