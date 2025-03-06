@@ -5,15 +5,9 @@ on:
  workflow_call:
    inputs:
       envname:
-        type: choice
-        description: 'target environment name '
-        required: true
-        options:
-        - 'oracleoci'
-        - 'dev'
-        - 'qa'
-        - 'uat'
-        default: 'oracleoci'
+      description: 'database env name'
+      required: true
+      default: oracleoci
       db-instance-name:
         description: 'database instance name '
         required: true
