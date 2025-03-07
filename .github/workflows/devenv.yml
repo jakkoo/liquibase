@@ -30,9 +30,9 @@ jobs:
   devinstances:
     uses: "./.github/workflows/DBChangesSync.yml"
     with:
-      envname: oracleoci
-      db-instance-name: thayeratp
-      db-instance-id: ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla
+      envname: "oracleoci"
+      db-instance-name: "THAYERATP"
+      db-instance-id: "ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla"
      
 
           
