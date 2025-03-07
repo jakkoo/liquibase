@@ -54,7 +54,9 @@ jobs:
     steps:
      
       - name: Workspace Location
-        run: echo $GITHUB_WORKSPACE
+        run: | 
+         echo $GITHUB_WORKSPACE
+         echo "DBPASSWD***"${{ env.DB_PASSWD }}
       - name: checkout dev
         uses: actions/checkout@v4
         with:
