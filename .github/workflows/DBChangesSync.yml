@@ -33,7 +33,7 @@ jobs:
      #    || github.ref_name == 'dev'  && 'dev'
       #   || 'oracleoci'
      # }}
-    environment: ${{ github.event.inputs.envname }}
+    environment: ${{ inputs.envname }}
     name: Integrate and execute LB through SQLcl 
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
@@ -42,14 +42,14 @@ jobs:
       OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
-      RUNNER_TOOL_CACHE: ${{ secrets.DB_ENV_BASEDIR }}/${{ github.event.inputs.envname || 'oracleoci' }}
-      AGENT_TOOLSDIRECTORY: ${{ secrets.DB_ENV_BASEDIR }}/${{ github.event.inputs.envname || 'oracleoci' }}
-      DB_ENV: ${{ github.event.inputs.envname || 'oracleoci' }}
-      DB_INST: ${{ github.event.inputs.db-instance-name || 'thayeratp' }}
-      DB_USER: ${{ format('DB_{0}_USER', github.event.inputs.db-instance-name || 'thayeratp' ) }}
-      DB_PASSWD: ${{ format('DB_{0}_PASSWD',github.event.inputs.db-instance-name || 'thayeratp') }}
-      DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',github.event.inputs.db-instance-name || 'thayeratp' ) }}
-      DB_INST_ID: ${{ github.event.inputs.db-instance-id || 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla' }}
+      RUNNER_TOOL_CACHE: ${{ secrets.DB_ENV_BASEDIR }}/${{ inputs.envname || 'oracleoci' }}
+      AGENT_TOOLSDIRECTORY: ${{ secrets.DB_ENV_BASEDIR }}/${{ inputs.envname || 'oracleoci' }}
+      DB_ENV: ${{ inputs.envname || 'oracleoci' }}
+      DB_INST: ${{ inputs.db-instance-name || 'thayeratp' }}
+      DB_USER: ${{ format('DB_{0}_USER', inputs.db-instance-name || 'thayeratp' ) }}
+      DB_PASSWD: ${{ format('DB_{0}_PASSWD',inputs.db-instance-name || 'thayeratp') }}
+      DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',inputs.db-instance-name || 'thayeratp' ) }}
+      DB_INST_ID: ${{ inputs.db-instance-id || 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla' }}
   
     steps:
      
