@@ -3,7 +3,6 @@ name: DevDBInstance-Syn
 on:
   
   pull_request:
-  
     branches: [ "main" ]
   workflow_dispatch:
     inputs:
@@ -30,7 +29,6 @@ on:
 jobs:
   devinstances:
     uses: "./.github/workflows/DBChangesSync.yml"
-    
     with:
       envname: oracleoci
       db-instance-name: thayeratp
