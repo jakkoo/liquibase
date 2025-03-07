@@ -29,7 +29,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   devinstances:
-    uses: "{organization}/{repo}/.github/workflows/DBChangesSync.yml"
+    uses: "{organization}/{repo}/.github/workflows/DBChangesSync.yml/@main"
     with:
       envname: oracleoci
       db-instance-name: thayeratp
