@@ -19,7 +19,7 @@ on:
       db-instance-name:
         description: 'database instance name '
         required: true
-        default: 'thayeratp'
+        default: 'THAYERATP'
       db-instance-id:
         description: 'database instance id '
         required: true
