@@ -57,6 +57,7 @@ jobs:
         run: | 
          echo $GITHUB_WORKSPACE
          echo "DBPASSWD***"${{ env.DB_PASSWD }}
+         echo "inputs***"${{ inputs.envname }}
       - name: checkout dev
         uses: actions/checkout@v4
         with:
