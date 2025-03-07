@@ -7,14 +7,17 @@ on:
       envname:
         description: 'database env name'
         required: true
+        type: string
         default: oracleoci
       db-instance-name:
         description: 'database instance name '
         required: true
+        type: string
         default: 'thayeratp'
       db-instance-id:
         description: 'database instance id '
         required: true
+        type: string
         default: 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla'
 
 # Allows you to run this workflow manually from the Actions tab
