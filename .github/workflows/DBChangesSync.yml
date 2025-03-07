@@ -34,7 +34,7 @@ jobs:
       #   || 'oracleoci'
      # }}
     environment: ${{ github.event.inputs.envname }}
-    name: SQLcl Integration
+    name: Integrate and execute LB through SQLcl 
     env:
       OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
       OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
