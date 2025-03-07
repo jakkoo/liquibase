@@ -28,9 +28,9 @@ on:
        
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  dev-instances:
-   uses: ./.github/workflows/DBChangesSync.yml
-   with:
+  call-workflow:
+    uses: ./.github/workflows/DBChangesSync.yml
+    with:
       envname: oracleoci
       db-instance-name: thayeratp
       db-instance-id: ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla
