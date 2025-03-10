@@ -24,6 +24,10 @@ on:
         description: 'database instance id '
         required: true
         default: 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla'
+      sqlcltag:
+        description: 'tag name to use '
+        required: false
+        default: 'basev1'
        
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
