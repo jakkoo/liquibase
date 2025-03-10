@@ -99,9 +99,9 @@ jobs:
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
       - name: 'execute the udpate'
         working-directory: ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
-        run:|
-             echo "${{ env.SQL_LB_CMD }}" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
-             echo "lb tag -tag ${{ env.PR_NUMBER }} " | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}  
+        run: |
+          echo "${{ env.SQL_LB_CMD }}" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
+          echo "lb tag -tag ${{ env.PR_NUMBER }} " | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}  
 
           
          
