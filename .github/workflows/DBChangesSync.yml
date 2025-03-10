@@ -62,7 +62,7 @@ jobs:
       DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',inputs.db-instance-name || 'thayeratp' ) }}
       DB_INST_ID: ${{ inputs.db-instance-id || 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla' }}
       SQL_LB_CMD: ${{ inputs.sqlcl-cmd || 'lb update -changelog-file controller.xml' }}
-      PR_NUMBER: ${{ github.event.number || ${{ inputs.tagnametouse }} || 'basev1' }}
+      PR_NUMBER: ${{ github.event.number ||  inputs.tagnametouse  || 'basev1' }}
       
   
     steps:
