@@ -19,6 +19,12 @@ on:
         required: true
         type: string
         default: 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla'
+      sqlcl-cmd:
+        description: 'exact sqlcl lb command to execute '
+        required: false
+        type: string
+        default: 'lb update -changelog-file controller.xml'
+        
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -50,6 +56,9 @@ jobs:
       DB_PASSWD: ${{ format('DB_{0}_PASSWD',inputs.db-instance-name || 'thayeratp') }}
       DB_TNSNAME: ${{ format('DB_{0}_TNSNAME',inputs.db-instance-name || 'thayeratp' ) }}
       DB_INST_ID: ${{ inputs.db-instance-id || 'ocid1.autonomousdatabase.oc1.iad.anuwcljtntxkdlyambke7vkjliaugvioqteeobnp5q7vs5x6hdp56elwczla' }}
+      SQL_LB_CMD: ${{ inputs.sqlcl-cmd || 'lb update -changelog-file controller.xml' }}
+      PR_NUMBER: ${{ github.event.number }}
+      
   
     steps:
      
@@ -90,8 +99,8 @@ jobs:
           echo "${SQLCL_HOME}/bin" >> $GITHUB_PATH
       - name: 'execute the udpate'
         working-directory: ${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}/lbfiles
-        run: echo "lb update -changelog-file controller.xml" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
-          
+        run: echo "${{ env.SQL_LB_CMD }}" | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}
+        run: echo "lb tag -tag ${{ env.PR_NUMBER }} " | sql ${{ secrets[env.DB_USER] }}/${{ secrets[env.DB_PASSWD] }}@${{ secrets[env.DB_TNSNAME] }}?TNS_ADMIN=${{ secrets.DB_ENV_BASEDIR }}/${{ env.DB_ENV }}/dbinstances/${{ env.DB_INST }}  
 
           
          
