@@ -53,6 +53,7 @@ jobs:
       OCI_CLI_KEY_FILE: ${{ secrets.OCI_CLI_KEY_FILE }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
       OCI_INSTANCE_ID: ${{ secrets.OCI_INSTANCE_ID }}
+      OCI_CLI_RC_FILE: "/home/jakkoo/.oci/config"
       RUNNER_TOOL_CACHE: ${{ secrets.DB_ENV_BASEDIR }}/${{ inputs.envname || 'oracleoci' }}
       AGENT_TOOLSDIRECTORY: ${{ secrets.DB_ENV_BASEDIR }}/${{ inputs.envname || 'oracleoci' }}
       DB_ENV: ${{ inputs.envname || 'oracleoci' }}
